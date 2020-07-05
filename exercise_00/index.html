@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Interface Exercise 00</title>
+    <meta charset="utf-8"/>
+   <!--<link rel="stylesheet" href="component.css">-->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<audio id="s">
+    <source src="S.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+</audio>
+<audio id="w">
+    <source src="W.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+</audio>
+<audio id="o">
+    <source src="O.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+</audio>
+<audio id="t">
+    <source src="T.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+</audio>
+
+<p>Listen to Yannis Friedrichs SWOT Analysis.</p>
+<div id="interface">
+  <button class="btn btn-3" onclick="playAudio('s')" type="button">S</button>
+  <button class="btn btn-1" onclick="playAudio('w')" type="button">W</button>
+  <button class="btn btn-4" onclick="playAudio('o')" type="button">O</button>
+  <button class="btn btn-2" onclick="playAudio('t')" type="button">T</button>
+</div>
+<script>
+    var s = document.getElementById("s");
+    var w = document.getElementById("w");
+    var o = document.getElementById("o");
+    var t = document.getElementById("t");
+
+    function playAudio(char) {
+        if(char == 's')
+            s.play();
+        if(char == 'w')
+            w.play();
+        if(char == 'o')
+            o.play();
+        if(char == 't')
+            t.play();
+    }
+</script>
+
+</body>
+</html>

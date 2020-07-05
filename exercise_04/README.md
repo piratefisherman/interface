@@ -1,0 +1,30 @@
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Yannis Friedrich - Interface</title>
+    <meta name="author" content="Yannis Friedrich">
+    <meta name="keywords" content="UX, Interface, Design, User Journey,">
+    <meta name="description" content="Excercises for Interface Design">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles/style.css?v=1.0">
+</head>
+<body>
+<div class="aufgabe">
+<H1> Konzept Aufgabe #04</H1>
+    <a href="https://drive.google.com/file/d/1gFxxayHFgkzVQplkJRz8Zl-zqnMXYwX_/view?usp=sharing" target="_blank"><button>Download</button></a>
+    <p>Sound Origin ist ein Voice Interface, das einem dabei helfen soll, einen Song wiederzufinden. Als Feedback im Rahmen des Praktikums erhielt ich den Vorschlag, dass es sinnvoll wäre, wenn man die Songvorschläge noch einmal anhören kann. Dies implementierte ich daraufhin.</p>
+    <h3>Beschreibung der User Interaktion</h3>
+    <ul>
+        <li>Unterscheidung in "First Use" und "Regular Use": Das Setup wird automatisch beim ersten Gebrauch durchgeführt.</li>
+        <li>Noch keine Ansprache definiert. User Singt oder spielt eine Aufnahme vor.</li>
+        <li>Möglichkeit zusätzliche Informationen anzugeben</li>
+        <li>Generierung von 3 Vorschlägen</li>
+        <li>3 Möglichkeiten: 1.Song war dabei, 2. Erneut anhören, 3. Song war nicht dabei.</li>
+        <li>1. VO nennt den Song und fragt, ob nach einem spezifischen Interpreten gesucht werden soll. Falls dies zutrifft, begibt sich der User ebnfalls erneut in ein Loop.</li>
+        <li>3. VO kann drei neue Treffer generieren. User kann solange im Loop beiben wie er möchte.</li>
+    </ul>
+    <div class="mxgraph" style="max-width:100%;border:1px solid transparent;" data-mxgraph="{&quot;highlight&quot;:&quot;#0000ff&quot;,&quot;nav&quot;:true,&quot;resize&quot;:true,&quot;toolbar&quot;:&quot;zoom layers lightbox&quot;,&quot;edit&quot;:&quot;_blank&quot;,&quot;xml&quot;:&quot;&lt;mxfile host=\&quot;app.diagrams.net\&quot; modified=\&quot;2020-05-30T16:10:01.087Z\&quot; agent=\&quot;5.0 (Macintosh; Intel Mac OS X 10_13_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.61 Safari/537.36\&quot; etag=\&quot;3C6R50Myhb1QrD77FVW8\&quot; version=\&quot;13.1.9\&quot; type=\&quot;google\&quot;&gt;&lt;diagram id=\&quot;C5RBs43oDa-KdzZeNtuy\&quot; name=\&quot;Page-1\&quot;&gt;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&lt;/diagram&gt;&lt;/mxfile&gt;&quot;}"></div>
+    <script type="text/javascript" src="https://app.diagrams.net/js/viewer.min.js"></script>
+</div>
+</body>
+</html>

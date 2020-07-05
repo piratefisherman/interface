@@ -1,0 +1,32 @@
+body {  font-size: 1.5em;
+        font-family: arial, sans-serif;
+        background-color: #02010A;} /*#1B1F3B, #1B065E*/
+input {
+        display: block;
+        margin: 10% auto;
+        transition: all .3s ease-in-out;
+}
+input:focus,
+select:focus,
+textarea:focus,
+button:focus {
+        outline: none;
+}
+input:hover{  transform: scale(1.05);  }
+input:active {transform: scale(1.0); }
+span {
+        color: white;
+        font-size: 4em;
+}
+#speechbox {display: block;
+        margin: auto;
+        width: 75%;}
+
+#description {  color: white;
+        position: fixed;
+        padding: 2em;
+        left: 75%;
+        top: 30%;
+        transform: translate(-50%, -50%);}
+
+.hide_desc {display:none;}

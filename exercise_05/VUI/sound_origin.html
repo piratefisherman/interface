@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="css/style.css">
+    <title>Sound Origin</title>
+    <script src="js/libs/artyom.window.min.js"></script>
+    <!--<script src="js/playgroud-artyom-script.js"></script>-->
+</head>
+<body onload="displayDesc(0)">
+<div>
+    <input type="image" src="img/button_2.png" onclick="startArtyom()" value="Start voice commands"/>
+    <div id="description" class="hide_desc">
+        <h1>Try saying:</h1>
+        <div id="desc1">
+            <ul>
+                <li> My name is...</li>
+            </ul>
+        </div>
+        <div id="desc2">
+            <ul>
+                <li> Singing.</li>
+                <li> Playing.</li>
+            </ul>
+        </div>
+        <div id="desc3">
+            <ul>
+                <li> Yes, the song was written by the Beatles.</li>
+                <li> No.</li>
+            </ul>
+        </div>
+        <div id="desc4">
+            <ul>
+                <li> Yes Song X.</li>
+                <li> Not sure.</li>
+                <li> No.</li>
+            </ul>
+        </div>
+        <div id="desc5">
+            <ul>
+                <li> Yes.</li>
+                <li> No.</li>
+            </ul>
+        </div>
+    </div>
+    <div id="speechbox">
+        <span id="output"></span>
+    </div>
+</div>
+<script>
+
+    //Globals
+
+    const artyom = new Artyom();
+    artyom.ArtyomVoicesIdentifiers["en-GB"] = ["Google UK English Female"];
+    var spokenText = "";
+    var name = "";
+    var cState = 0;
+    var no_match = 0;
+
+    //Initializing
+
+    function startArtyom() {
+        artyom.initialize({
+            lang: "en-US",
+            continuous: true,
+            obeyKeywords: "Ori",
+            debug: true,
+            listen: true
+        });
+        cState = 0;
+        artyom.say("Welcome to Sound Origin, what's your name?");
+        displayDesc(1);
+        return cState;
+    }
+
+    //Commands
+
+    artyom.addCommands([
+        {
+            indexes: ["Hi My name is *", "Hello My name is *", "Hey My name is *", "My name is *", "I'm *"],
+            smart: true,
+            action: function (i, wildcard) {
+                artyom.say("Hey" + wildcard + ", I'm here to tell you the name of any Song. Just sing or play a recording for me anytime.");
+                name = wildcard;
+                displayDesc(2);
+                return name;
+            }
+        },
+        {
+            indexes: ["singing"],
+            smart: false,
+            action: function () {
+                artyom.say("Thank you for singing! Would you like to provide additional information?");
+                cState = 1;
+                displayDesc(3);
+                return cState;
+            }
+        },
+        {
+            indexes: ["playing"],
+            smart: false,
+            action: function () {
+                artyom.say("Thank you for playing a recording! Would you like to provide additional information?");
+                cState = 1;
+                displayDesc(3);
+                return cState;
+            }
+        },
+        {
+            indexes: ["no"],
+            smart: false,
+            action: function () {
+                if (cState == 1) {
+                    artyom.say("Alright. Is it one of these three songs?");
+                    cState = 2;
+                    displayDesc(4);
+                    return cState;
+                }
+                if (cState == 2) {
+                    artyom.say("Would you like to listen to another three songs?");
+                    cState = 3;
+                    no_match = 1;
+                    displayDesc(5);
+                    return cState, no_match;
+                }
+                if (cState == 3) {
+                    artyom.say("Sorry that I couldn't help you this time," + name);
+                    cState = 4;
+                    displayDesc(0);
+                    return cState;
+                }
+            }
+        },
+        {
+            indexes: ["yes *"],
+            smart: true,
+            action: function (i, wildcard) {
+                if (cState == 1) {
+                    artyom.say(wildcard + ",Thank you. Is it one of these three songs?");
+                    cState = 2;
+                    displayDesc(4);
+                    return cState;
+                }
+                if (cState == 2) {
+                    artyom.say("Alright " + name + " " + wildcard + "is called Yesterday. It was originally written by the beatles.");
+                    cState = 3;
+                    displayDesc(0);
+                    return cState;
+                }
+                if (cState == 3 && no_match == 1) {
+                    artyom.say("Alright. Is it one of these three songs?");
+                    cState = 2;
+                    no_match = 0;
+                    displayDesc(4);
+                    return cState, no_match;
+                }
+            }
+        },
+        {
+            indexes: ["yes"],
+            smart: false,
+            action: function (i, wildcard) {
+                if (cState == 3 && no_match == 1) {
+                    artyom.say("Alright. Is it one of these three songs?");
+                    cState = 2;
+                    no_match = 0;
+                    displayDesc(4);
+                    return cState, no_match;
+                }
+            }
+        },
+        {
+            indexes: ["thank you", "thanks", "cool", "too easy", "that's alright", "No worries", "that's okay", "no problem"],
+            smart: false,
+            action: function () {
+                artyom.say("No worries mate!");
+                displayDesc(0);
+            }
+        },
+        {
+            indexes: ["not sure"],
+            smart: false,
+            action: function () {
+                artyom.say("Okay no worries would you like to listen again?");
+                cState = 3;
+                no_match = 1;
+                displayDesc(5);
+                return cState, no_match;
+            }
+        }
+    ])
+
+
+    //Get Spoken Text
+
+    artyom.redirectRecognizedTextOutput(function (text, isFinal) {
+        var span = document.getElementById('output');
+
+        if (isFinal) {
+            span.innerHTML = '';
+        } else {
+            span.innerHTML = text;
+            if (artyom.isSpeaking().toString() === "false") {
+
+                spokenText = text;
+                return spokenText;
+            }
+        }
+    });
+
+    function repeatText() {
+        artyom.say(spokenText);
+    }
+
+   function displayDesc(desc) {
+       var desc1 = document.getElementById("desc1");
+       var desc2 = document.getElementById("desc2");
+       var desc3 = document.getElementById("desc3");
+       var desc4 = document.getElementById("desc4");
+       var desc5 = document.getElementById("desc5");
+       var description = document.getElementById("description");
+       description.style.display = "block";
+
+        if (desc == 1) {
+
+            desc1.style.display = "block";
+            desc2.style.display = "none";
+            desc3.style.display = "none";
+            desc4.style.display = "none";
+            desc5.style.display = "none";
+        }
+        if (desc == 2) {
+            desc1.style.display = "none";
+            desc2.style.display = "block";
+            desc3.style.display = "none";
+            desc4.style.display = "none";
+            desc5.style.display = "none";
+        }
+        if (desc == 3) {
+            desc1.style.display = "none";
+            desc2.style.display = "none";
+            desc3.style.display = "block";
+            desc4.style.display = "none";
+            desc5.style.display = "none";
+        }
+        if (desc == 4) {
+            desc1.style.display = "none";
+            desc2.style.display = "none";
+            desc3.style.display = "none";
+            desc4.style.display = "block";
+            desc5.style.display = "none";
+        }
+            if (desc == 5) {
+                desc1.style.display = "none";
+                desc2.style.display = "none";
+                desc3.style.display = "none";
+                desc4.style.display = "none";
+                desc5.style.display = "block";
+        }
+        if (desc == 0) {
+            description.style.display = "none";
+        }
+    }
+
+</script>
+</body>
+</html>
