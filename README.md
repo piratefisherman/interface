@@ -1,5 +1,4 @@
 # Interface Design 2020 Yannis Friedrich 
-## Eine SWOT Analyse zum Kurs als interaktive Soundanwendung
 [Aufgabe 00 - SWOT Analyse](http://yannis-friedrich.de/interface/interface_exercise_00/)<br>
 [Aufgabe 01 - Design Thinking](https://piratefisherman.github.io/IFD-SoSe20/exercise_01/)<br>
 [Aufgabe 02.1 - Prototyping Tools](https://piratefisherman.github.io/IFD-SoSe20/exercise_02.1_figma/)<br>
