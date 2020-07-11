@@ -2,7 +2,5 @@
 <project version="4">
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/exercise_04/IFD-SoSe20-2" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/exercise_04/artyom.js" vcs="Git" />
   </component>
 </project>
